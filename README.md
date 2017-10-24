@@ -163,4 +163,3 @@ sc2.com/index?season=1
 #### 获取单个用户比赛结果页面
 方法：post
 地址：/viewresult
-
