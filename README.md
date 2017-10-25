@@ -55,10 +55,12 @@ The StarCraft2 AI ladder service
 
 #### 失败返回
 接口调用失败统一返回如下json，其中包括如下对象：
+
 |名称|类型|是否必须|描述|
 |---|---|---|----|
 |err_no|int|是|错误的id|
 |message|string|是|错误信息|
+
 例子：
 ```json
 {
@@ -74,6 +76,7 @@ The StarCraft2 AI ladder service
 content-type：form-data
 
 参数：
+
 |名称|类型|是否必须|描述|
 |---|---|---|----|
 |email|string|是|用户的Email，在服务层对其进行格式校验|
@@ -135,6 +138,7 @@ content-type：form-data
 |名称|类型|是否必须|描述|
 |---|---|---|----|
 |season|string|是|赛季|
+
 例子：
 ```html
 sc2.com/index?season=1
@@ -162,4 +166,79 @@ sc2.com/index?season=1
 
 #### 获取单个用户比赛结果页面
 方法：post
-地址：/viewresult
+
+地址：/view_result
+
+类型：application/json
+
+参数：
+
+|名称|类型|是否必须|描述|
+|---|---|---|----|
+|username|string|是|用户名|
+
+返回值：
+|名称|类型|是否必须|描述|
+|---|---|---|----|
+|time|string|是|比赛时间|
+|opponent|string|是|对手名称|
+|race|string|是|对手种族|
+|Map|string|是|比赛地图|
+|result|string|是|比赛结果|
+
+#### 获取replay
+方法：post
+
+地址：/get_replay
+
+类型：application/json
+
+|名称|类型|是否必须|描述|
+|---|---|---|----|
+|username|string|是|用户名|
+|replayId|int|是|replay的Id|
+
+返回：multipart file
+
+### 数据库设计
+
+#### 账号信息表
+|名称|类型|是否必须|描述|
+|---|---|---|---|
+|id|int|是|用户id，auto increment|
+|email|char(100)|是|用户email|
+|username|char(30)|yes|user name|
+|password|char(50)|yes|password.md5 + salt|
+|bot_name|char(30)|yes|bot name|
+|bot_type|int|yes|bot type|
+|race|int|yes|race|
+|description|varchar|no|description|
+|bot_path|char(50)|yes|file path of bot|
+
+#### 比赛队列
+|名称|类型|是否必须|描述|
+|---|---|---|---|
+|user_id|int|yes|user id and bot id, 账号信息表和该表中的bot有相同的id|
+|username|char(30)|yes|username|
+|bot_name|char(50)|yes|bot name|
+|bot_path|char(50)|yes|bot path|
+
+#### 比赛结果
+|名称|类型|是否必须|描述|
+|---|---|---|---|
+|id|int|yes|auto increment|
+|bot_name_A|char(50)|yes|其中一人的bot的名字|
+|bot_name_B|char(50)|yes|另外一人的bot的名字|
+|win|int|yes|0：平局，1：A胜利，-1：B胜利|
+|replay_path|char(50)|yes|录像的保存路径，录像名字：A bot名+B bot名+时间戳|
+
+#### 赛季记录表
+|名称|类型|是否必须|描述|
+|---|---|---|---|
+|season|int|yes|第几赛季|
+|bot_id|int|yes|账号信息表和该表中的bot有相同的id|
+|bot_name|char(50)|yes|bot的名字|
+|matches|int|yes|比赛场数目|
+|wins|int|yes|胜利数|
+|win_rate|float|yes|胜率|
+
