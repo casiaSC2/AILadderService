@@ -1,22 +1,38 @@
 package ladder.controllers;
 
 
-import ladder.vos.TestVO;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import ladder.commons.BaseResponse;
+import ladder.commons.ErrorJson;
+import ladder.commons.SuccessJson;
+import ladder.service.SignUpService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 
 /**
  * Created by wangjian on 17-10-24.
  */
 @RestController
 public class Controller {
-    @RequestMapping("/test")
+    @Resource
+    SignUpService signUpService;
+    @RequestMapping("/sign_up")
     @ResponseBody
-    TestVO test(){
-        TestVO testVO = new TestVO();
-        testVO.setI(1);
-        testVO.setS("hello");
-        return testVO;
+    public BaseResponse signUp(@RequestParam("email") String email,
+                               @RequestParam("username") String username,
+                               @RequestParam("password") String password,
+                               @RequestParam("botName") String botName,
+                               @RequestParam("botType") Integer botType,
+                               @RequestParam("race") Integer race,
+                               @RequestParam("description") String description,
+                               @RequestParam("bot")MultipartFile bot) {
+        try {
+            signUpService.signUp(email, username, password, botName, botType, race, description, bot);
+            return new SuccessJson();
+        } catch (Exception e){
+            return new ErrorJson(0, e.getMessage());
+        }
+
     }
 }
