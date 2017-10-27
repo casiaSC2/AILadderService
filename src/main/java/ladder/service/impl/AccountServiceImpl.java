@@ -4,21 +4,27 @@ import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import ladder.commons.Constants;
 import ladder.commons.Sc2Exception;
 import ladder.dao.AccountMapper;
+import ladder.dao.MatchPoolMapper;
 import ladder.dao.model.Account;
 import ladder.dao.model.AccountExample;
+import ladder.dao.model.MatchPool;
+import ladder.dao.model.MatchPoolExample;
 import ladder.service.AccountService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,11 +36,14 @@ import java.util.regex.Pattern;
 public class AccountServiceImpl implements AccountService {
     @Resource
     private AccountMapper accountMapper;
+    @Resource
+    private MatchPoolMapper matchPoolMapper;
 
     private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
 
     @Override
+    @Transactional
     public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot) throws Exception {
         if (!isEmail(email)) {
             throw new Sc2Exception("Email format error", 11);
@@ -64,11 +73,23 @@ public class AccountServiceImpl implements AccountService {
         account.setRace(race);
         account.setDescription(description);
         account.setBotPath(fullBotPath);
+        account.setUpdateTime(new Date());
         try {
             accountMapper.insert(account);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Sc2Exception("Insert account error", 10);
+        }
+        MatchPool matchPool = new MatchPool();
+        matchPool.setBotName(botName);
+        matchPool.setBotPath(fullBotPath);
+        matchPool.setInMatch(false);
+        matchPool.setUsername(username);
+        try {
+            matchPoolMapper.insert(matchPool);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Sc2Exception("Insert match pool error", 10);
         }
     }
 
@@ -94,7 +115,34 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void updateBot(String username, String password, MultipartFile bot) throws Exception {
+    public boolean updateBot(String username, String password, MultipartFile bot) throws Exception {
+        // verify the username and password
+        AccountExample example = new AccountExample();
+        AccountExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<Account> accounts = accountMapper.selectByExample(example);
+        if (accounts.size() < 1) {
+            return false;
+        }
+        if (accounts.size() > 1) {
+            throw new Sc2Exception("Username duplicate", 14);
+        }
+        Account account = accounts.get(0);
+        password = encodePassword(password, Constants.SALT);
+        if (!account.getPassword().equals(password)) {
+            return false;
+        }
+        // see the bot is in game, if the bot is in game, we should not override the bot file
+        MatchPool matchPool = matchPoolMapper.selectByPrimaryKey(username);
+        if (matchPool.getInMatch()){
+            throw new Sc2Exception("Bot in Game", 15);
+        }
+        // save new bot
+        bot.transferTo(new File(account.getBotPath()));
+        // update bot update time in the account database
+        account.setUpdateTime(new Date());
+        accountMapper.updateByPrimaryKeySelective(account);
+        return true;
 
     }
 

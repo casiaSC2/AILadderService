@@ -132,12 +132,12 @@ content-type：form-data
 
 方法：get
 
-地址：/index
+地址：/ladder
 
 参数：
 |名称|类型|是否必须|描述|
 |---|---|---|----|
-|season|string|是|赛季|
+|season|int|是|赛季|
 
 例子：
 ```html
@@ -211,6 +211,7 @@ sc2.com/index?season=1
 |password|char(50)|yes|password.md5 + salt|
 |bot_name|char(30)|yes|bot name|
 |bot_type|int|yes|bot type|
+|update_time|Date|yes|update bot的时间|
 |race|int|yes|race|
 |description|varchar|no|description|
 |bot_path|char(50)|yes|file path of bot|
@@ -218,8 +219,7 @@ sc2.com/index?season=1
 #### 比赛队列
 |名称|类型|是否必须|描述|
 |---|---|---|---|
-|user_id|int|yes|user id and bot id, 账号信息表和该表中的bot有相同的id|
-|username|char(30)|yes|username|
+|username|char(30)|yes|username, pk|
 |bot_name|char(50)|yes|bot name|
 |bot_path|char(50)|yes|bot path|
 

@@ -30,5 +30,14 @@
         <table tableName="account">
             <generatedKey column="id" sqlStatement="Mysql"/>
         </table>
+        <table tableName="match_pool">
+
+        </table>
+        <table tableName="match_result">
+            <generatedKey column="id" sqlStatement="Mysql"/>
+        </table>
+        <table tableName="statistical_list">
+
+        </table>
     </context>
 </generatorConfiguration>

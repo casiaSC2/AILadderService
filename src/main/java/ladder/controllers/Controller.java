@@ -22,13 +22,33 @@ public class Controller {
     @Resource
     private AccountService accountService;
 
-    @RequestMapping("/update")
+    @RequestMapping(value = "ladder", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse ladder(@RequestParam(name = "season") Integer season){
+        return new SuccessJson();
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse update(@RequestParam(name = "username") String username,
                                @RequestParam(name = "password") String password,
-                               @RequestParam(name = "bot") MultipartFile bot){
-        return new SuccessJson();
+                               @RequestParam(name = "bot") MultipartFile bot) {
+        try {
+            boolean result = accountService.updateBot(username, password, bot);
+            if (result) {
+                return new SuccessJson();
+            } else {
+                return new ErrorJson(21, "Invalid username or password");
+            }
+        } catch (Sc2Exception e) {
+            logger.error(e.getMessage(), e);
+            return new ErrorJson(e.getErr_no(), e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new ErrorJson(0, "Unknown error");
+        }
     }
+
     @RequestMapping("/sign_up")
     @ResponseBody
     public BaseResponse signUp(@RequestParam(name = "email") String email,
@@ -38,14 +58,14 @@ public class Controller {
                                @RequestParam(name = "botType") Integer botType,
                                @RequestParam(name = "race") Integer race,
                                @RequestParam(name = "description", required = false) String description,
-                               @RequestParam(name = "bot")MultipartFile bot) {
+                               @RequestParam(name = "bot") MultipartFile bot) {
         try {
             accountService.signUp(email, username, password, botName, botType, race, description, bot);
             return new SuccessJson();
-        } catch (Sc2Exception e){
+        } catch (Sc2Exception e) {
             logger.error(e.getMessage(), e);
             return new ErrorJson(e.getErr_no(), e.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return new ErrorJson(0, "Unknown error");
         }
