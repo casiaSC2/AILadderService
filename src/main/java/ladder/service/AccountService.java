@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
  * Created by wangjian on 17-10-27.
  */
 @Service
-public interface SignUpService {
+public interface AccountService {
     void signUp(String email, String username, String password, String botName, Integer botType, Integer race,
                 String description, MultipartFile bot) throws Exception;
+    boolean verifyAccount(String username, String password) throws Exception;
+    void updateBot(String username, String password, MultipartFile bot) throws Exception;
 }

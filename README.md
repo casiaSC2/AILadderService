@@ -118,7 +118,7 @@ content-type：form-data
 参数：
 |名称|类型|是否必须|描述|
 |---|---|---|----|
-|email|string|是|用户email|
+|username|string|是|用户名|
 |password|string|是|用户密码|
 |bot|multipartFile|是|用户bot文件|
 

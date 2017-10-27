@@ -5,7 +5,9 @@ import ladder.commons.BaseResponse;
 import ladder.commons.ErrorJson;
 import ladder.commons.Sc2Exception;
 import ladder.commons.SuccessJson;
-import ladder.service.SignUpService;
+import ladder.service.AccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,26 +18,39 @@ import javax.annotation.Resource;
  */
 @RestController
 public class Controller {
+    private static Logger logger = LoggerFactory.getLogger(Controller.class);
     @Resource
-    private SignUpService signUpService;
+    private AccountService accountService;
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public BaseResponse update(@RequestParam(name = "username") String username,
+                               @RequestParam(name = "password") String password,
+                               @RequestParam(name = "bot") MultipartFile bot){
+        return new SuccessJson();
+    }
     @RequestMapping("/sign_up")
     @ResponseBody
-    public BaseResponse signUp(@RequestParam("email") String email,
-                               @RequestParam("username") String username,
-                               @RequestParam("password") String password,
-                               @RequestParam("botName") String botName,
-                               @RequestParam("botType") Integer botType,
-                               @RequestParam("race") Integer race,
-                               @RequestParam("description") String description,
-                               @RequestParam("bot")MultipartFile bot) {
+    public BaseResponse signUp(@RequestParam(name = "email") String email,
+                               @RequestParam(name = "username") String username,
+                               @RequestParam(name = "password") String password,
+                               @RequestParam(name = "botName") String botName,
+                               @RequestParam(name = "botType") Integer botType,
+                               @RequestParam(name = "race") Integer race,
+                               @RequestParam(name = "description", required = false) String description,
+                               @RequestParam(name = "bot")MultipartFile bot) {
         try {
-            signUpService.signUp(email, username, password, botName, botType, race, description, bot);
+            accountService.signUp(email, username, password, botName, botType, race, description, bot);
             return new SuccessJson();
         } catch (Sc2Exception e){
-            return new ErrorJson(0, e.getMessage());
+            logger.error(e.getMessage(), e);
+            return new ErrorJson(e.getErr_no(), e.getMessage());
         } catch (Exception e){
-            return new ErrorJson(0, e.getMessage());
+            logger.error(e.getMessage(), e);
+            return new ErrorJson(0, "Unknown error");
         }
 
     }
+
+
 }
