@@ -1,6 +1,8 @@
 package ladder.dao.model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class MatchResultExample {
@@ -192,6 +194,32 @@ public class MatchResultExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCTime(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Time(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCTime(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Time> timeList = new ArrayList<java.sql.Time>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                timeList.add(new java.sql.Time(iter.next().getTime()));
+            }
+            addCriterion(condition, timeList, property);
+        }
+
+        protected void addCriterionForJDBCTime(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Time(value1.getTime()), new java.sql.Time(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -521,6 +549,206 @@ public class MatchResultExample {
 
         public Criteria andReplayPathNotBetween(String value1, String value2) {
             addCriterion("replay_path not between", value1, value2, "replayPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameAIsNull() {
+            addCriterion("username_A is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameAIsNotNull() {
+            addCriterion("username_A is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameAEqualTo(String value) {
+            addCriterion("username_A =", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameANotEqualTo(String value) {
+            addCriterion("username_A <>", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameAGreaterThan(String value) {
+            addCriterion("username_A >", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameAGreaterThanOrEqualTo(String value) {
+            addCriterion("username_A >=", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameALessThan(String value) {
+            addCriterion("username_A <", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameALessThanOrEqualTo(String value) {
+            addCriterion("username_A <=", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameALike(String value) {
+            addCriterion("username_A like", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameANotLike(String value) {
+            addCriterion("username_A not like", value, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameAIn(List<String> values) {
+            addCriterion("username_A in", values, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameANotIn(List<String> values) {
+            addCriterion("username_A not in", values, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameABetween(String value1, String value2) {
+            addCriterion("username_A between", value1, value2, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameANotBetween(String value1, String value2) {
+            addCriterion("username_A not between", value1, value2, "usernameA");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBIsNull() {
+            addCriterion("username_B is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBIsNotNull() {
+            addCriterion("username_B is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBEqualTo(String value) {
+            addCriterion("username_B =", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBNotEqualTo(String value) {
+            addCriterion("username_B <>", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBGreaterThan(String value) {
+            addCriterion("username_B >", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBGreaterThanOrEqualTo(String value) {
+            addCriterion("username_B >=", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBLessThan(String value) {
+            addCriterion("username_B <", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBLessThanOrEqualTo(String value) {
+            addCriterion("username_B <=", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBLike(String value) {
+            addCriterion("username_B like", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBNotLike(String value) {
+            addCriterion("username_B not like", value, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBIn(List<String> values) {
+            addCriterion("username_B in", values, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBNotIn(List<String> values) {
+            addCriterion("username_B not in", values, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBBetween(String value1, String value2) {
+            addCriterion("username_B between", value1, value2, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBNotBetween(String value1, String value2) {
+            addCriterion("username_B not between", value1, value2, "usernameB");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIsNull() {
+            addCriterion("time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIsNotNull() {
+            addCriterion("time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeEqualTo(Date value) {
+            addCriterionForJDBCTime("time =", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotEqualTo(Date value) {
+            addCriterionForJDBCTime("time <>", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeGreaterThan(Date value) {
+            addCriterionForJDBCTime("time >", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCTime("time >=", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeLessThan(Date value) {
+            addCriterionForJDBCTime("time <", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCTime("time <=", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIn(List<Date> values) {
+            addCriterionForJDBCTime("time in", values, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotIn(List<Date> values) {
+            addCriterionForJDBCTime("time not in", values, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeBetween(Date value1, Date value2) {
+            addCriterionForJDBCTime("time between", value1, value2, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCTime("time not between", value1, value2, "time");
             return (Criteria) this;
         }
     }

@@ -5,10 +5,8 @@ import ladder.commons.Constants;
 import ladder.commons.Sc2Exception;
 import ladder.dao.AccountMapper;
 import ladder.dao.MatchPoolMapper;
-import ladder.dao.model.Account;
-import ladder.dao.model.AccountExample;
-import ladder.dao.model.MatchPool;
-import ladder.dao.model.MatchPoolExample;
+import ladder.dao.StatisticalListMapper;
+import ladder.dao.model.*;
 import ladder.service.AccountService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -38,6 +36,8 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper accountMapper;
     @Resource
     private MatchPoolMapper matchPoolMapper;
+    @Resource
+    private StatisticalListMapper statisticalListMapper;
 
     private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
@@ -45,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot) throws Exception {
+        // do verify work
         if (!isEmail(email)) {
             throw new Sc2Exception("Email format error", 11);
         }
@@ -58,12 +59,12 @@ public class AccountServiceImpl implements AccountService {
             throw new Sc2Exception("Description length error", 14);
         }
         password = encodePassword(password, Constants.SALT);
-
+        // save bot to the file
         String fullBotDirectory = FilenameUtils.concat(Constants.BOT_PATH, botName);
         FileUtils.forceMkdir(new File(fullBotDirectory));
         String fullBotPath = FilenameUtils.concat(fullBotDirectory, botName);
         bot.transferTo(new File(fullBotPath));
-
+        // set up account
         Account account = new Account();
         account.setEmail(email);
         account.setUsername(username);
@@ -80,6 +81,7 @@ public class AccountServiceImpl implements AccountService {
             logger.error(e.getMessage(), e);
             throw new Sc2Exception("Insert account error", 10);
         }
+        // put it into match pool
         MatchPool matchPool = new MatchPool();
         matchPool.setBotName(botName);
         matchPool.setBotPath(fullBotPath);
@@ -89,23 +91,30 @@ public class AccountServiceImpl implements AccountService {
             matchPoolMapper.insert(matchPool);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new Sc2Exception("Insert match pool error", 10);
+            throw new Sc2Exception("Insert match pool error", 15);
+        }
+        // put it into season ladder
+        StatisticalList statisticalList = new StatisticalList();
+        statisticalList.setSeason(Constants.SEASON);
+        statisticalList.setBotName(botName);
+        statisticalList.setMatches(0);
+        statisticalList.setUsername(username);
+        statisticalList.setWinRate(0F);
+        statisticalList.setWins(0);
+        try {
+            statisticalListMapper.insert(statisticalList);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Sc2Exception("Insert ladder statistical list error", 16);
         }
     }
 
     @Override
     public boolean verifyAccount(String username, String password) throws Exception {
-        AccountExample example = new AccountExample();
-        AccountExample.Criteria criteria = example.createCriteria();
-        criteria.andUsernameEqualTo(username);
-        List<Account> accounts = accountMapper.selectByExample(example);
-        if (accounts.size() < 1) {
+        Account account = accountMapper.selectByPrimaryKey(username);
+        if (account == null) {
             return false;
         }
-        if (accounts.size() > 1) {
-            throw new Sc2Exception("Username duplicate", 14);
-        }
-        Account account = accounts.get(0);
         password = encodePassword(password, Constants.SALT);
         if (account.getPassword().equals(password)) {
             return true;
@@ -117,17 +126,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean updateBot(String username, String password, MultipartFile bot) throws Exception {
         // verify the username and password
-        AccountExample example = new AccountExample();
-        AccountExample.Criteria criteria = example.createCriteria();
-        criteria.andUsernameEqualTo(username);
-        List<Account> accounts = accountMapper.selectByExample(example);
-        if (accounts.size() < 1) {
+        Account account = accountMapper.selectByPrimaryKey(username);
+        if (account == null) {
             return false;
         }
-        if (accounts.size() > 1) {
-            throw new Sc2Exception("Username duplicate", 14);
-        }
-        Account account = accounts.get(0);
         password = encodePassword(password, Constants.SALT);
         if (!account.getPassword().equals(password)) {
             return false;

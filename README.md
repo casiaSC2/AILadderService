@@ -149,20 +149,23 @@ sc2.com/index?season=1
 |---|---|---|----|
 |botName|string|是|bot的名字|
 |username|string|是|用户名|
-|race|string|是|种族|
+|race|int|是|种族|
 |matches|int|是|比赛场次|
 |wins|int|是|胜利次数|
 |winRate|float|是|胜率|
 
 例子：
-{
-    "botName":"abc",
-    "username":"bcd",
-    "race":"Protoss",
-    "matches":1,
-    "wins":0,
-    "winRate":0.0
-}
+[
+    {
+        "botName":"abc",
+        "username":"bcd",
+        "race":"Protoss",
+        "matches":1,
+        "wins":0,
+        "winRate":0.0
+    }
+]
+
 
 #### 获取单个用户比赛结果页面
 方法：post
@@ -181,7 +184,7 @@ sc2.com/index?season=1
 |名称|类型|是否必须|描述|
 |---|---|---|----|
 |time|string|是|比赛时间|
-|opponent|string|是|对手名称|
+|opponentBot|string|是|对手名称|
 |race|string|是|对手种族|
 |Map|string|是|比赛地图|
 |result|string|是|比赛结果|
@@ -227,6 +230,8 @@ sc2.com/index?season=1
 |名称|类型|是否必须|描述|
 |---|---|---|---|
 |id|int|yes|auto increment|
+|username_A|
+|username_B|
 |bot_name_A|char(50)|yes|其中一人的bot的名字|
 |bot_name_B|char(50)|yes|另外一人的bot的名字|
 |win|int|yes|0：平局，1：A胜利，-1：B胜利|
@@ -236,7 +241,7 @@ sc2.com/index?season=1
 |名称|类型|是否必须|描述|
 |---|---|---|---|
 |season|int|yes|第几赛季|
-|bot_id|int|yes|账号信息表和该表中的bot有相同的id|
+|username|string|yes|username|
 |bot_name|char(50)|yes|bot的名字|
 |matches|int|yes|比赛场数目|
 |wins|int|yes|胜利数|
