@@ -3,6 +3,7 @@ package ladder.controllers;
 
 import ladder.commons.BaseResponse;
 import ladder.commons.ErrorJson;
+import ladder.commons.Sc2Exception;
 import ladder.commons.SuccessJson;
 import ladder.service.SignUpService;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import javax.annotation.Resource;
 @RestController
 public class Controller {
     @Resource
-    SignUpService signUpService;
+    private SignUpService signUpService;
     @RequestMapping("/sign_up")
     @ResponseBody
     public BaseResponse signUp(@RequestParam("email") String email,
@@ -30,6 +31,8 @@ public class Controller {
         try {
             signUpService.signUp(email, username, password, botName, botType, race, description, bot);
             return new SuccessJson();
+        } catch (Sc2Exception e){
+            return new ErrorJson(0, e.getMessage());
         } catch (Exception e){
             return new ErrorJson(0, e.getMessage());
         }
