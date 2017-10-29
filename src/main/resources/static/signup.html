@@ -34,19 +34,72 @@
 
     <div id="myTop" class="w3-container w3-top w3-theme w3-large">
         <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
-            <span id="myIntro" class="w3-hide">StarCraft AI Ladder - Season 1</span></p>
+            <span id="myIntro" class="w3-hide">StarCraft AI Ladder - Sign Up</span></p>
     </div>
 
     <header class="w3-container w3-theme" style="padding:64px 32px">
-        <h1 class="w3-xxxlarge">StarCraft AI Ladder - Season 1</h1>
+        <h1 class="w3-xxxlarge">StarCraft AI Ladder - Sign Up</h1>
     </header>
 
     <div class="w3-container" style="padding:32px">
 
+
+        <form class="w3-container w3-card-4" action="/sign_up" method="post" enctype="multipart/form-data">
+            <p>
+                <label><b>Email</b></label>
+                <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Email" name="email" required style="width:90%">
+            </p>
+            <p>
+                <label><b>Username</b></label>
+                <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required style="width:90%">
+            </p>
+            <p>
+                <label><b>Password</b></label>
+                <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="password" required style="width:90%">
+            </p>
+            <p>
+            <label><b>Bot Name</b></label>
+            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Bot Name" name="botName" required style="width:90%">
+
+            </p>
+            <p>
+                <label><b>Bot Type</b></label>
+                <br>
+                <select class="w3-select" name="botType" id="botType" style="width:90%">
+                    <option value="0">Json File</option>
+                </select>
+
+            </p>
+            <p>
+                <label><b>Race</b></label>
+                <br>
+                <select class="w3-select" name="race" id="race" style="width:90%">
+                    <option value="0">Terran</option>
+                    <option value="1">Protoss</option>
+                    <option value="2">Zerg</option>
+                </select>
+            </p>
+            <p>
+                <label><b>Description</b></label>
+                <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Description" name="description" required style="width:90%">
+
+            </p>
+            <p>
+                <label><b>Bot File</b></label>
+                <input class="w3-input" type="file" style="width:90%" name="bot">
+
+            </p>
+
+            <p>
+                <button class="w3-button w3-section w3-teal w3-ripple" type="submit"> Sign Up </button>
+            </p>
+
+        </form>
+
     </div>
 
     <footer class="w3-container w3-theme" style="padding:32px">
-        <p>Footer information goes here</p>
+        <p>Created by StarCraft2 group, CASIA.</p>
     </footer>
 
 </div>
