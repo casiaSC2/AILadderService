@@ -5,10 +5,26 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
     body {font-family: "Roboto", sans-serif}
     .w3-bar-block .w3-bar-item{padding:16px;font-weight:bold}
 </style>
+<head>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script type="text/javascript">
+        function sub() {
+            // jquery 表单提交
+            $("#signup").ajaxSubmit(function(message) {
+                // 对于表单提交成功后处理，message为返回内容
+                alert(message["err_no"]);
+            });
+
+            return false; // 必须返回false，否则表单会自己再做一次提交操作，并且页面跳转
+        }
+    </script>
+</head>
 <body>
 
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;" id="mySidebar">
@@ -23,7 +39,7 @@
     </div>
 
     <a class="w3-bar-item w3-button" href="signup.html">Sign up</a>
-    <a class="w3-bar-item w3-button" href="update.html">Update Bot</a>
+    <a class="w3-bar-item w3-button" href="update_bot.html">Update Bot</a>
     <a class="w3-bar-item w3-button" href="learning.html">Learning</a>
     <a class="w3-bar-item w3-button" href="information.html">Information</a>
 </nav>
@@ -44,7 +60,7 @@
     <div class="w3-container" style="padding:32px">
 
 
-        <form class="w3-container w3-card-4" action="/sign_up" method="post" enctype="multipart/form-data">
+        <form class="w3-container w3-card-4" id="signup" action="/sign_up" method="post" enctype="multipart/form-data" onsubmit="return sub();">
             <p>
                 <label><b>Email</b></label>
                 <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Email" name="email" required style="width:90%">
@@ -91,7 +107,7 @@
             </p>
 
             <p>
-                <button class="w3-button w3-section w3-teal w3-ripple" type="submit"> Sign Up </button>
+                <input class="w3-button w3-section w3-teal w3-ripple" type="submit" value="Submit"> </input>
             </p>
 
         </form>
@@ -104,7 +120,9 @@
 
 </div>
 
-<script>
+
+<script type="text/javascript">
+
     // Open and close the sidebar on medium and small screens
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
