@@ -8,11 +8,10 @@ The StarCraft2 AI ladder service
 分为
 1. Home
 1. Ladder Seasons
-1. Submit Bot
 1. Learning
 1. Information
 
-等几个页面，除了Ladder Seasons和Submit Bot以外全部为静态页面
+等几个页面，除了Ladder Seasons以外全部为静态页面
 
 ### 服务流程设计
 
@@ -237,7 +236,7 @@ sc2.com/index?season=1
 |bot_name_B|char(50)|yes|另外一人的bot的名字|
 |win|int|yes|0：平局，1：A胜利，-1：B胜利|
 |replay_path|char(50)|yes|录像的保存路径，录像名字：A bot名+B bot名+时间戳|
-
+ 
 #### 赛季记录表
 |名称|类型|是否必须|描述|
 |---|---|---|---|

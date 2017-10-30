@@ -3,7 +3,6 @@ package ladder.service.impl;
 import ladder.dao.AccountMapper;
 import ladder.dao.StatisticalListMapper;
 import ladder.dao.model.Account;
-import ladder.dao.model.AccountExample;
 import ladder.dao.model.StatisticalList;
 import ladder.dao.model.StatisticalListExample;
 import ladder.service.LadderListService;
@@ -45,7 +44,7 @@ public class LadderListServiceImpl implements LadderListService {
             ladderSingleInfo.setWins(statisticalList.getWins());
             ladderSingleInfoList.add(ladderSingleInfo);
         }
-        result.setLadderSingleInfos(ladderSingleInfoList);
+        result.setInfos(ladderSingleInfoList);
         return result;
     }
 

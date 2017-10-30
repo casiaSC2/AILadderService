@@ -751,6 +751,76 @@ public class MatchResultExample {
             addCriterionForJDBCTime("time not between", value1, value2, "time");
             return (Criteria) this;
         }
+
+        public Criteria andMapIsNull() {
+            addCriterion("map is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapIsNotNull() {
+            addCriterion("map is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapEqualTo(String value) {
+            addCriterion("map =", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapNotEqualTo(String value) {
+            addCriterion("map <>", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapGreaterThan(String value) {
+            addCriterion("map >", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapGreaterThanOrEqualTo(String value) {
+            addCriterion("map >=", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapLessThan(String value) {
+            addCriterion("map <", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapLessThanOrEqualTo(String value) {
+            addCriterion("map <=", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapLike(String value) {
+            addCriterion("map like", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapNotLike(String value) {
+            addCriterion("map not like", value, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapIn(List<String> values) {
+            addCriterion("map in", values, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapNotIn(List<String> values) {
+            addCriterion("map not in", values, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapBetween(String value1, String value2) {
+            addCriterion("map between", value1, value2, "map");
+            return (Criteria) this;
+        }
+
+        public Criteria andMapNotBetween(String value1, String value2) {
+            addCriterion("map not between", value1, value2, "map");
+            return (Criteria) this;
+        }
     }
 
     /**

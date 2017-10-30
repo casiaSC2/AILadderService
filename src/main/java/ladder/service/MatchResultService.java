@@ -1,5 +1,6 @@
 package ladder.service;
 
+import ladder.vos.MatchList;
 import org.springframework.stereotype.Service;
 
 /**
@@ -7,5 +8,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface MatchResultService {
-
+    MatchList getMatches(String username) throws Exception;
 }

@@ -8,13 +8,13 @@ import java.util.List;
  * Created by wangjian on 17-10-28.
  */
 public class LadderList extends BaseResponse {
-    private List<LadderSingleInfo> ladderSingleInfos;
+    private List<LadderSingleInfo> infos;
 
-    public List<LadderSingleInfo> getLadderSingleInfos() {
-        return ladderSingleInfos;
+    public List<LadderSingleInfo> getInfos() {
+        return infos;
     }
 
-    public void setLadderSingleInfos(List<LadderSingleInfo> ladderSingleInfos) {
-        this.ladderSingleInfos = ladderSingleInfos;
+    public void setInfos(List<LadderSingleInfo> infos) {
+        this.infos = infos;
     }
 }

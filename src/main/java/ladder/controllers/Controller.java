@@ -7,7 +7,9 @@ import ladder.commons.Sc2Exception;
 import ladder.commons.SuccessJson;
 import ladder.service.AccountService;
 import ladder.service.LadderListService;
+import ladder.service.MatchResultService;
 import ladder.vos.LadderList;
+import ladder.vos.MatchList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +28,22 @@ public class Controller {
     @Resource
     private LadderListService ladderListService;
 
+    @Resource
+    private MatchResultService matchResultService;
+
     @RequestMapping(value = "/view_result", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse viewResult(@RequestParam(name = "username") String username){
-        return new SuccessJson();
+        try {
+            MatchList matchList = matchResultService.getMatches(username);
+            return matchList;
+        } catch (Sc2Exception e) {
+            logger.error(e.getMessage(), e);
+            return new ErrorJson(e.getErr_no(), e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new ErrorJson(0, "Unknown error");
+        }
     }
 
     @RequestMapping(value = "/ladder", method = RequestMethod.GET)

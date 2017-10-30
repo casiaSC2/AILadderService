@@ -92,6 +92,7 @@ CREATE TABLE `match_result` (
   `username_A` char(50) NOT NULL,
   `username_B` char(50) NOT NULL,
   `time` time NOT NULL,
+  `map` char(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -141,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-30 14:21:12
+-- Dump completed on 2017-10-30 17:16:30
