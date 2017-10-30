@@ -35,22 +35,21 @@
 
     <div id="myTop" class="w3-container w3-top w3-theme w3-large">
         <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
-            <span id="myIntro" class="w3-hide">StarCraft AI Ladder - Season 1</span></p>
+            <span id="myIntro" class="w3-hide">StarCraft AI Ladder - Match Result</span></p>
     </div>
 
     <header class="w3-container w3-theme" style="padding:64px 32px">
-        <h1 class="w3-xxxlarge">StarCraft AI Ladder - Season 1</h1>
+        <h1 class="w3-xxxlarge">StarCraft AI Ladder - Match Result</h1>
     </header>
     <div class="w3-responsive">
         <div class="w3-container" style="padding:32px">
-            <table id="LadderTable" class="w3-table-all w3-hoverable w3-centered">
+            <table id="MatchTable" class="w3-table-all w3-hoverable w3-centered">
                 <tr>
-                    <th onclick="bubbleSortTable(LadderTable,0)">Bot Name</th>
-                    <th onclick="bubbleSortTable(LadderTable,1)">Username</th>
+                    <th onclick="bubbleSortTable(LadderTable,0)">Date</th>
+                    <th onclick="bubbleSortTable(LadderTable,1)">Opponent</th>
                     <th onclick="bubbleSortTable(LadderTable,2)">Race</th>
-                    <th onclick="bubbleSortTable(LadderTable,3)">Match Number</th>
-                    <th onclick="bubbleSortTable(LadderTable,4)">Wins</th>
-                    <th onclick="bubbleSortTable(LadderTable,5)">Win Rate</th>
+                    <th onclick="bubbleSortTable(LadderTable,3)">Map</th>
+                    <th onclick="bubbleSortTable(LadderTable,4)">Result</th>
                     <th></th>
 
                 </tr>
@@ -70,38 +69,43 @@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
     $(document).ready(function () {
-        $.get('/ladder', {season : 1}, function (message) {
-            var infos = message["infos"];
-            for(var i = 0;i<infos.length;i++){
-                var newTr = document.getElementById("LadderTable").insertRow();
+        // var username = GetRequest();
+        alert('hello')
+        $.post('/view_result', {username : username}, function (message) {
+            var matches = message["matches"];
+            for(var i = 0;i<matches.length;i++){
+                var newTr = document.getElementById("MatchTable").insertRow();
                 var newTd0 = newTr.insertCell(0);
-                newTd0.innerHTML = infos[i]["botName"];
+                newTd0.innerHTML = matches[i]["time"];
                 newTd0.style = "vertical-align: middle";
                 var newTd1 = newTr.insertCell(1);
-                newTd1.innerHTML = infos[i]["userName"];
+                newTd1.innerHTML = matches[i]["opponent_bot"];
                 newTd1.style = "vertical-align: middle";
                 var newTd2 = newTr.insertCell(2);
-                newTd2.innerHTML = infos[i]["race"];
+                newTd2.innerHTML = matches[i]["race"];
                 newTd2.style = "vertical-align: middle";
                 var newTd3 = newTr.insertCell(3);
-                newTd3.innerHTML = infos[i]["matches"];
+                newTd3.innerHTML = matches[i]["map"];
                 newTd3.style = "vertical-align: middle";
                 var newTd4 = newTr.insertCell(4);
-                newTd4.innerHTML = infos[i]["wins"];
+                newTd4.innerHTML = matches[i]["result"];
                 newTd4.style = "vertical-align: middle";
-                var newTd5 = newTr.insertCell(5);
-                newTd5.innerHTML = infos[i]["winRate"];
-                newTd5.style = "vertical-align: middle";
-                var newTd6 = newTr.insertCell(6);
-                //language=HTML
-                newTd6.innerHTML = "<button class='w3-button w3-section w3-teal w3-ripple' onclick='jump(\"" + infos[i]["userName"] + "\")'>View Matches</button>"
+                var newTd6 = newTr.insertCell(5);
+                newTd6.innerHTML = "<button class='w3-button w3-section w3-teal w3-ripple'>View Matches</button>"
             }
         })
     });
-    function jump(username) {
-        window.location.href = "match_result.html?username="+username
-    }
-    // Open and close the sidebar on medium and small screens
+    function GetRequest() {
+        var url = location.search;
+        if (url.indexOf("?") !== -1) {
+            var str = url.substr(1);
+            alert(str)
+            //alert(str);
+            var strs= [];
+            strs = str.split('&');
+            return strs[0];
+        }
+        // Open and close the sidebar on medium and small screens
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
         document.getElementById("myOverlay").style.display = "block";
