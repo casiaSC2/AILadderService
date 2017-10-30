@@ -178,6 +178,7 @@ sc2.com/index?season=1
 
 |名称|类型|是否必须|描述|
 |---|---|---|----|
+|season|int|yes|season|
 |username|string|是|用户名|
 
 返回值：

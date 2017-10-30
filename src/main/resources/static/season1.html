@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
     body {font-family: "Roboto", sans-serif}
     .w3-bar-block .w3-bar-item{padding:16px;font-weight:bold}
 </style>
@@ -40,10 +41,34 @@
     <header class="w3-container w3-theme" style="padding:64px 32px">
         <h1 class="w3-xxxlarge">StarCraft AI Ladder - Season 1</h1>
     </header>
+    <div class="w3-responsive">
+        <div class="w3-container" style="padding:32px">
+            <table id="LadderTable" class="w3-table-all w3-hoverable w3-centered">
+                <tr>
+                    <th onclick="bubbleSortTable(LadderTable,0)">Bot Name</th>
+                    <th onclick="bubbleSortTable(LadderTable,1)">Username</th>
+                    <th onclick="bubbleSortTable(LadderTable,2)">Race</th>
+                    <th onclick="bubbleSortTable(LadderTable,3)">Match Number</th>
+                    <th onclick="bubbleSortTable(LadderTable,4)">Wins</th>
+                    <th onclick="bubbleSortTable(LadderTable,5)">Win Rate</th>
+                    <th></th>
 
-    <div class="w3-container" style="padding:32px">
-
+                </tr>
+                <tr>
+                    <td style="vertical-align: middle">Jill</td>
+                    <td style="vertical-align: middle">Smith</td>
+                    <td style="vertical-align: middle">Protoss</td>
+                    <td style="vertical-align: middle">10</td>
+                    <td style="vertical-align: middle">5</td>
+                    <td style="vertical-align: middle">50%</td>
+                    <th>
+                        <button class="w3-button w3-section w3-teal w3-ripple">View Matches</button>
+                    </th>
+                </tr>
+            </table>
+        </div>
     </div>
+
 
     <footer class="w3-container w3-theme" style="padding:32px">
         <p>Footer information goes here</p>
@@ -51,6 +76,7 @@
 
 </div>
 
+<script src="resources/js/commons.js"></script>
 <script>
     // Open and close the sidebar on medium and small screens
     function w3_open() {
