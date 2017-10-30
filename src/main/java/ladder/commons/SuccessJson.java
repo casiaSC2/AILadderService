@@ -4,17 +4,27 @@ package ladder.commons;
  * Created by wangjian on 17-10-27.
  */
 public class SuccessJson extends BaseResponse{
-    private int success;
+    private int err_no;
+    private String message;
 
     public SuccessJson() {
-        this.success = 1;
+        this.err_no = 0;
+        this.message = "success";
     }
 
-    public int getSuccess() {
-        return success;
+    public int getErr_no() {
+        return err_no;
     }
 
-    public void setSuccess(int success) {
-        this.success = success;
+    public void setErr_no(int err_no) {
+        this.err_no = err_no;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

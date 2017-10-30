@@ -10,6 +10,7 @@ import ladder.dao.model.*;
 import ladder.service.AccountService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -47,16 +48,16 @@ public class AccountServiceImpl implements AccountService {
     public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot) throws Exception {
         // do verify work
         if (!isEmail(email)) {
-            throw new Sc2Exception("Email format error", 11);
+            throw new Sc2Exception("Email Format Error.", 11);
         }
         if (username.length() > 50) {
-            throw new Sc2Exception("user name format error", 12);
+            throw new Sc2Exception("User Name Format Error.", 12);
         }
         if (password.length() > 50 || password.length() < 6) {
-            throw new Sc2Exception("Password length error", 13);
+            throw new Sc2Exception("Password Length Error.", 13);
         }
         if (description.length() > 100) {
-            throw new Sc2Exception("Description length error", 14);
+            throw new Sc2Exception("Description Length Error.", 14);
         }
         password = encodePassword(password, Constants.SALT);
         // save bot to the file
@@ -79,7 +80,7 @@ public class AccountServiceImpl implements AccountService {
             accountMapper.insert(account);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new Sc2Exception("Insert account error", 10);
+            throw new Sc2Exception("Insert Account Error", 10);
         }
         // put it into match pool
         MatchPool matchPool = new MatchPool();
@@ -91,7 +92,7 @@ public class AccountServiceImpl implements AccountService {
             matchPoolMapper.insert(matchPool);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new Sc2Exception("Insert match pool error", 15);
+            throw new Sc2Exception("Insert Match Pool Error.", 15);
         }
         // put it into season ladder
         StatisticalList statisticalList = new StatisticalList();
@@ -105,7 +106,7 @@ public class AccountServiceImpl implements AccountService {
             statisticalListMapper.insert(statisticalList);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new Sc2Exception("Insert ladder statistical list error", 16);
+            throw new Sc2Exception("Insert Ladder Statistical List Error.", 16);
         }
     }
 
@@ -137,7 +138,7 @@ public class AccountServiceImpl implements AccountService {
         // see the bot is in game, if the bot is in game, we should not override the bot file
         MatchPool matchPool = matchPoolMapper.selectByPrimaryKey(username);
         if (matchPool.getInMatch()){
-            throw new Sc2Exception("Bot in Game", 15);
+            throw new Sc2Exception("Bot is Playing Game, Please Wait.", 15);
         }
         // save new bot
         bot.transferTo(new File(account.getBotPath()));
