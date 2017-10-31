@@ -42,7 +42,7 @@ public class Controller {
             return new ErrorJson(e.getErr_no(), e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ErrorJson(0, "Unknown error");
+            return new ErrorJson(1, "Unknown error");
         }
     }
 
@@ -57,7 +57,7 @@ public class Controller {
             return new ErrorJson(e.getErr_no(), e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ErrorJson(0, "Unknown error");
+            return new ErrorJson(1, "Unknown error");
         }
     }
 
@@ -78,7 +78,7 @@ public class Controller {
             return new ErrorJson(e.getErr_no(), e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ErrorJson(0, "Unknown error");
+            return new ErrorJson(1, "Unknown error");
         }
     }
 
@@ -100,7 +100,7 @@ public class Controller {
             return new ErrorJson(e.getErr_no(), e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ErrorJson(0, "Unknown error");
+            return new ErrorJson(1, "Unknown error");
         }
 
     }

@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
         }
         password = encodePassword(password, Constants.SALT);
         // save bot to the file
-        String fullBotDirectory = FilenameUtils.concat(Constants.BOT_PATH, botName);
+        String fullBotDirectory = FilenameUtils.concat(Constants.getBotPath(), botName);
         FileUtils.forceMkdir(new File(fullBotDirectory));
         String fullBotPath = FilenameUtils.concat(fullBotDirectory, botName);
         bot.transferTo(new File(fullBotPath));
@@ -77,7 +77,7 @@ public class AccountServiceImpl implements AccountService {
         account.setBotPath(fullBotPath);
         account.setUpdateTime(new Date());
         try {
-            accountMapper.insert(account);
+            accountMapper.insertSelective(account);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Sc2Exception("Insert Account Error", 10);
