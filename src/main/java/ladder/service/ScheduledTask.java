@@ -25,6 +25,8 @@ public class ScheduledTask {
     private MatchPoolMapper matchPoolMapper;
     @Resource
     private AccountMapper accountMapper;
+    @Resource
+    MatchService matchService;
     @Scheduled(cron = "0/10 * * * * ? ")
     public void match() throws Exception {
         MatchPoolExample matchPoolExample = new MatchPoolExample();
@@ -43,9 +45,7 @@ public class ScheduledTask {
         String usernameB = B.getUsername();
         Account accountA = accountMapper.selectByPrimaryKey(usernameA);
         Account accountB = accountMapper.selectByPrimaryKey(usernameB);
-        match(accountA, accountB);
+        matchService.match(accountA.getBotName(), accountB.getBotName(), accountA.getBotPath(), accountB.getBotPath());
     }
-    private void match(Account accountA, Account accountB){
-        
-    }
+
 }
