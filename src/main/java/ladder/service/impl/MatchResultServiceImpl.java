@@ -9,10 +9,14 @@ import ladder.service.MatchResultService;
 import ladder.utils.EnumUtils;
 import ladder.vos.Match;
 import ladder.vos.MatchList;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,11 +54,18 @@ public class MatchResultServiceImpl implements MatchResultService {
             Account account = accountMapper.selectByPrimaryKey(opponent);
             match.setOpponent_bot(account.getBotName());
             match.setRace(EnumUtils.getRace(account.getRace()));
-            match.setTime(matchResult.getTime());
+            match.setTime(dateToString(matchResult.getTime()));
+            match.setId(matchResult.getId());
+            match.setPath(matchResult.getReplayPath());
             match.setResult(result);
             matches.add(match);
         }
         matchList.setMatches(matches);
         return matchList;
+    }
+    @NotNull
+    public static String dateToString(Date currentTime) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(currentTime);
     }
 }
