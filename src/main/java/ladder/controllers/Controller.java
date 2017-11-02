@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 /**
  * Created by wangjian on 17-10-24.
@@ -30,6 +32,39 @@ public class Controller {
 
     @Resource
     private MatchResultService matchResultService;
+
+    @RequestMapping(value="/download_replay",method=RequestMethod.GET)
+    public void testDownload(HttpServletResponse resp,
+                             @RequestParam(name = "path") String path) throws IOException {
+        File file = new File(path);
+        String fileName = "replay.sc2replay";
+        resp.setHeader("content-type", "application/octet-stream");
+		resp.setContentType("application/octet-stream");
+		resp.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+		byte[] buff = new byte[1024];
+		BufferedInputStream bis = null;
+		OutputStream os = null;
+		try {
+			os = resp.getOutputStream();
+			bis = new BufferedInputStream(new FileInputStream(file));
+			int i = bis.read(buff);
+			while (i != -1) {
+				os.write(buff, 0, buff.length);
+				os.flush();
+				i = bis.read(buff);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bis != null) {
+				try {
+					bis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+        }
+    }
 
     @RequestMapping(value = "/view_result", method = RequestMethod.POST)
     @ResponseBody

@@ -6,17 +6,35 @@ import java.util.Date;
  * Created by wangjian on 17-10-28.
  */
 public class Match {
-    private Date time;
+    private Integer id;
+    private String time;
     private String opponent_bot;
     private String race;
     private String map;
     private String result;
+    private String path;
 
-    public Date getTime() {
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

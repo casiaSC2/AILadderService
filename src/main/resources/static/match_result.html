@@ -69,8 +69,7 @@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
     $(document).ready(function () {
-        // var username = GetRequest();
-        alert('hello')
+        var username = getUsername();
         $.post('/view_result', {username : username}, function (message) {
             var matches = message["matches"];
             for(var i = 0;i<matches.length;i++){
@@ -90,21 +89,24 @@
                 var newTd4 = newTr.insertCell(4);
                 newTd4.innerHTML = matches[i]["result"];
                 newTd4.style = "vertical-align: middle";
-                var newTd6 = newTr.insertCell(5);
-                newTd6.innerHTML = "<button class='w3-button w3-section w3-teal w3-ripple'>View Matches</button>"
+                var newTd5 = newTr.insertCell(5);
+                newTd5.innerHTML = "<button class='w3-button w3-section w3-teal w3-ripple' onclick='getMatch(\"" + matches[i]["path"] + "\")'>Get Replay</button>"
             }
         })
     });
-    function GetRequest() {
+    function getMatch(path) {
+        window.location.href = "download_replay?path="+path
+    }
+    function getUsername() {
         var url = location.search;
         if (url.indexOf("?") !== -1) {
             var str = url.substr(1);
-            alert(str)
             //alert(str);
-            var strs= [];
-            strs = str.split('&');
-            return strs[0];
+            var strs = [];
+            strs = str.split('=');
+            return strs[1];
         }
+    }
         // Open and close the sidebar on medium and small screens
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
