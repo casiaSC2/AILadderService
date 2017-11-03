@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MatchService {
-    public native int match(String botNameA, String botNameB, String pathA, String pathB);
+    public native int match(String sc2Path, String pathA, String pathB, String mapString);
 
 }
