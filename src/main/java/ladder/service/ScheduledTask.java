@@ -6,6 +6,7 @@ import ladder.dao.MatchPoolMapper;
 import ladder.dao.model.Account;
 import ladder.dao.model.MatchPool;
 import ladder.dao.model.MatchPoolExample;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +27,9 @@ public class ScheduledTask {
     @Resource
     private AccountMapper accountMapper;
     @Resource
-    MatchService matchService;
+    private MatchService matchService;
+    @Value("${map.path}")
+    private String mapPath;
     @Scheduled(cron = "0/10 * * * * ? ")
     public void match() throws Exception {
         MatchPoolExample matchPoolExample = new MatchPoolExample();
@@ -45,7 +48,7 @@ public class ScheduledTask {
         String usernameB = B.getUsername();
         Account accountA = accountMapper.selectByPrimaryKey(usernameA);
         Account accountB = accountMapper.selectByPrimaryKey(usernameB);
-        matchService.match(accountA.getBotPath(), accountB.getBotPath(), "MapPath");
+        matchService.match(accountA.getBotPath(), accountB.getBotPath(), mapPath);
     }
 
 }

@@ -44,7 +44,6 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    @Transactional
     public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot) throws Exception {
         // do verify work
         if (!isEmail(email)) {
