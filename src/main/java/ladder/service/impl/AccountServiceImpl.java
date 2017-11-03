@@ -75,6 +75,7 @@ public class AccountServiceImpl implements AccountService {
         account.setDescription(description);
         account.setBotPath(fullBotPath);
         account.setUpdateTime(new Date());
+        account.setId(null);
         try {
             accountMapper.insertSelective(account);
         } catch (Exception e) {
