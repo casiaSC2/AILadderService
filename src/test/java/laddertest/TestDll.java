@@ -9,6 +9,7 @@ public class TestDll {
     public void test(){
         System.load("D:\\StarcraftAI\\commandcenter\\bin\\CommandCenter.dll");
         MatchService matchService = new MatchService();
-        matchService.match("hello", "hello","hi","hi");
+        int res = matchService.match("hi","hi", "map");
+        System.out.println(res);
     }
 }

@@ -45,7 +45,7 @@ public class ScheduledTask {
         String usernameB = B.getUsername();
         Account accountA = accountMapper.selectByPrimaryKey(usernameA);
         Account accountB = accountMapper.selectByPrimaryKey(usernameB);
-        matchService.match(accountA.getBotName(), accountB.getBotName(), accountA.getBotPath(), accountB.getBotPath());
+        matchService.match(accountA.getBotPath(), accountB.getBotPath(), "MapPath");
     }
 
 }
