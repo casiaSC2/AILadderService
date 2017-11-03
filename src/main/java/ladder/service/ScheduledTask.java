@@ -30,6 +30,8 @@ public class ScheduledTask {
     private MatchService matchService;
     @Value("${map.path}")
     private String mapPath;
+    @Value("${sc2.path}")
+    private String sc2Path;
     @Scheduled(cron = "0/10 * * * * ? ")
     public void match() throws Exception {
         MatchPoolExample matchPoolExample = new MatchPoolExample();
@@ -48,7 +50,7 @@ public class ScheduledTask {
         String usernameB = B.getUsername();
         Account accountA = accountMapper.selectByPrimaryKey(usernameA);
         Account accountB = accountMapper.selectByPrimaryKey(usernameB);
-        matchService.match(accountA.getBotPath(), accountB.getBotPath(), mapPath);
+        matchService.match(sc2Path, accountA.getBotPath(), accountB.getBotPath(), mapPath);
     }
 
 }
