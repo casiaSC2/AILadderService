@@ -9,7 +9,10 @@ public class TestDll {
     public void test(){
         System.load("D:\\StarcraftAI\\commandcenter\\bin\\CommandCenter.dll");
         MatchService matchService = new MatchService();
-        int res = matchService.match("hi","hi", "map");
+        String botAPath = "D:\\StarcraftAI\\commandcenter\\bin\\BotConfig.txt";
+        String botBPath = "D:\\StarcraftAI\\commandcenter\\bin\\BotConfig.txt";
+        String mapPath = "D:\\game\\StarCraft II\\maps\\Ladder2017Season1\\AbyssalReefLE.SC2Map";
+        int res = matchService.match(botAPath,botBPath, mapPath);
         System.out.println(res);
     }
 }
