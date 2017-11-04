@@ -11,7 +11,7 @@ public class EnumUtils {
             case 1:
                 return "Protoss";
             case 2:
-                return "zerg";
+                return "Zerg";
             default:
                 return "Unknown";
         }
