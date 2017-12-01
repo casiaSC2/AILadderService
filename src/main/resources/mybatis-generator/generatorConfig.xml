@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="C:\\Users\\Admin\\.m2\\repository\\mysql\\mysql-connector-java\\5.1.38\\mysql-connector-java-5.1.38.jar"/>
+    <classPathEntry location="D:\\Repositories\\Maven\\mysql\\mysql-connector-java\\5.1.38\\mysql-connector-java-5.1.38.jar"/>
     <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
