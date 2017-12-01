@@ -44,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot) throws Exception {
+    public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot, MultipartFile config) throws Exception {
         // do verify work
         if (!isEmail(email)) {
             throw new Sc2Exception("Email Format Error.", 11);
@@ -62,8 +62,11 @@ public class AccountServiceImpl implements AccountService {
         // save bot to the file
         String fullBotDirectory = FilenameUtils.concat(Constants.getBotPath(), botName);
         FileUtils.forceMkdir(new File(fullBotDirectory));
-        String fullBotPath = FilenameUtils.concat(fullBotDirectory, botName);
+        String fullBotPath = FilenameUtils.concat(fullBotDirectory, botName+".dll");
+        String fullConfigPath = FilenameUtils.concat(fullBotDirectory, "config.json");
+
         bot.transferTo(new File(fullBotPath));
+        config.transferTo(new File(fullConfigPath));
         // set up account
         Account account = new Account();
         account.setEmail(email);
@@ -74,6 +77,7 @@ public class AccountServiceImpl implements AccountService {
         account.setRace(race);
         account.setDescription(description);
         account.setBotPath(fullBotPath);
+        account.setConfigPath(fullConfigPath);
         account.setUpdateTime(new Date());
         account.setId(null);
         try {
@@ -86,6 +90,7 @@ public class AccountServiceImpl implements AccountService {
         MatchPool matchPool = new MatchPool();
         matchPool.setBotName(botName);
         matchPool.setBotPath(fullBotPath);
+        matchPool.setConfigPath(fullConfigPath);
         matchPool.setInMatch(false);
         matchPool.setUsername(username);
         try {
@@ -125,7 +130,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean updateBot(String username, String password, MultipartFile bot) throws Exception {
+    public boolean updateBot(String username, String password, MultipartFile bot, MultipartFile config) throws Exception {
         // verify the username and password
         Account account = accountMapper.selectByPrimaryKey(username);
         if (account == null) {
@@ -142,6 +147,7 @@ public class AccountServiceImpl implements AccountService {
         }
         // save new bot
         bot.transferTo(new File(account.getBotPath()));
+        config.transferTo(new File(account.getConfigPath()));
         // update bot update time in the account database
         account.setUpdateTime(new Date());
         accountMapper.updateByPrimaryKeySelective(account);

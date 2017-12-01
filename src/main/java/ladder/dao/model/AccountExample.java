@@ -822,6 +822,76 @@ public class AccountExample {
             return (Criteria) this;
         }
 
+        public Criteria andConfigPathIsNull() {
+            addCriterion("config_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathIsNotNull() {
+            addCriterion("config_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathEqualTo(String value) {
+            addCriterion("config_path =", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathNotEqualTo(String value) {
+            addCriterion("config_path <>", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathGreaterThan(String value) {
+            addCriterion("config_path >", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathGreaterThanOrEqualTo(String value) {
+            addCriterion("config_path >=", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathLessThan(String value) {
+            addCriterion("config_path <", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathLessThanOrEqualTo(String value) {
+            addCriterion("config_path <=", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathLike(String value) {
+            addCriterion("config_path like", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathNotLike(String value) {
+            addCriterion("config_path not like", value, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathIn(List<String> values) {
+            addCriterion("config_path in", values, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathNotIn(List<String> values) {
+            addCriterion("config_path not in", values, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathBetween(String value1, String value2) {
+            addCriterion("config_path between", value1, value2, "configPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfigPathNotBetween(String value1, String value2) {
+            addCriterion("config_path not between", value1, value2, "configPath");
+            return (Criteria) this;
+        }
+
         public Criteria andUpdateTimeIsNull() {
             addCriterion("update_time is null");
             return (Criteria) this;

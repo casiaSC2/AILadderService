@@ -28,7 +28,7 @@ import java.util.Random;
  */
 @Configuration
 @EnableScheduling
-public class ScheduledTask {
+    public class ScheduledTask {
     @Resource
     private MatchPoolMapper matchPoolMapper;
     @Resource
@@ -83,8 +83,10 @@ public class ScheduledTask {
         String usernameB = B.getUsername();
         Account accountA = accountMapper.selectByPrimaryKey(usernameA);
         Account accountB = accountMapper.selectByPrimaryKey(usernameB);
-        int matchResultInt = matchService.match(sc2Path, accountA.getBotPath(), EnumUtils.getRace(accountA.getRace()),
-                accountB.getBotPath(), EnumUtils.getRace(accountB.getRace()), mapPath, replayPath);
+        int matchResultInt = matchService.match(sc2Path,
+                accountA.getBotPath(), accountA.getConfigPath(), EnumUtils.getRace(accountA.getRace()),
+                accountB.getBotPath(), accountB.getConfigPath(), EnumUtils.getRace(accountB.getRace()),
+                mapPath, replayPath);
         // update match result
         MatchResult matchResult = new MatchResult();
         matchResult.setBotNameA(accountA.getBotName());

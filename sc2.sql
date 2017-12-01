@@ -34,6 +34,7 @@ CREATE TABLE `account` (
   `race` int(11) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `bot_path` char(50) NOT NULL,
+  `config_path` char(50) NOT NULL,
   `update_time` date NOT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`),
@@ -62,6 +63,7 @@ CREATE TABLE `match_pool` (
   `username` char(30) NOT NULL,
   `bot_name` char(50) NOT NULL,
   `bot_path` char(50) NOT NULL,
+  `config_path` char(50) NOT NULL,
   `in_match` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

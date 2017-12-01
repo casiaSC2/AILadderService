@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface AccountService {
     void signUp(String email, String username, String password, String botName, Integer botType, Integer race,
-                String description, MultipartFile bot) throws Exception;
+                String description, MultipartFile bot, MultipartFile config) throws Exception;
     boolean verifyAccount(String username, String password) throws Exception;
-    boolean updateBot(String username, String password, MultipartFile bot) throws Exception;
+    boolean updateBot(String username, String password, MultipartFile bot, MultipartFile config) throws Exception;
 }

@@ -100,9 +100,10 @@ public class Controller {
     @ResponseBody
     public BaseResponse update(@RequestParam(name = "username") String username,
                                @RequestParam(name = "password") String password,
-                               @RequestParam(name = "bot") MultipartFile bot) {
+                               @RequestParam(name = "bot") MultipartFile bot,
+                               @RequestParam(name = "config") MultipartFile config) {
         try {
-            boolean result = accountService.updateBot(username, password, bot);
+            boolean result = accountService.updateBot(username, password, bot, config);
             if (result) {
                 return new SuccessJson();
             } else {
@@ -126,9 +127,10 @@ public class Controller {
                                @RequestParam(name = "botType") Integer botType,
                                @RequestParam(name = "race") Integer race,
                                @RequestParam(name = "description", required = false) String description,
-                               @RequestParam(name = "bot") MultipartFile bot) {
+                               @RequestParam(name = "bot") MultipartFile bot,
+                               @RequestParam(name = "config") MultipartFile config) {
         try {
-            accountService.signUp(email, username, password, botName, botType, race, description, bot);
+            accountService.signUp(email, username, password, botName, botType, race, description, bot, config);
             return new SuccessJson();
         } catch (Sc2Exception e) {
             logger.error(e.getMessage(), e);
