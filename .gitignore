@@ -3,3 +3,4 @@
 /logs/*
 /target/*
 /out/*
+src/main/resources/application.properties
