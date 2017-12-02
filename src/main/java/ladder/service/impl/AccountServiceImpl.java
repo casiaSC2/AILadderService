@@ -4,6 +4,7 @@ import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import ladder.commons.Constants;
 import ladder.commons.Sc2Exception;
 import ladder.dao.AccountMapper;
+import ladder.dao.InsertAccountMapper;
 import ladder.dao.MatchPoolMapper;
 import ladder.dao.StatisticalListMapper;
 import ladder.dao.model.*;
@@ -39,13 +40,19 @@ public class AccountServiceImpl implements AccountService {
     private MatchPoolMapper matchPoolMapper;
     @Resource
     private StatisticalListMapper statisticalListMapper;
+    @Resource
+    private InsertAccountMapper insertAccountMapper;
 
     private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
 
     @Override
+    @Transactional
     public void signUp(String email, String username, String password, String botName, Integer botType, Integer race, String description, MultipartFile bot, MultipartFile config) throws Exception {
         // do verify work
+        if(!isDll(bot)){
+            throw new Sc2Exception("Bot file Format Error: bot Name:" + bot.getOriginalFilename(), 15);
+        }
         if (!isEmail(email)) {
             throw new Sc2Exception("Email Format Error.", 11);
         }
@@ -79,9 +86,18 @@ public class AccountServiceImpl implements AccountService {
         account.setBotPath(fullBotPath);
         account.setConfigPath(fullConfigPath);
         account.setUpdateTime(new Date());
-        account.setId(null);
+
         try {
-            accountMapper.insertSelective(account);
+            insertAccountMapper.insertAccount(account.getUsername(),
+                    account.getEmail(),
+                    account.getPassword(),
+                    account.getBotName(),
+                    account.getBotType(),
+                    account.getRace(),
+                    account.getDescription(),
+                    account.getBotPath(),
+                    account.getConfigPath(),
+                    account.getUpdateTime());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new Sc2Exception("Insert Account Error", 10);
@@ -159,6 +175,10 @@ public class AccountServiceImpl implements AccountService {
         Pattern emailPattern = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
         Matcher matcher = emailPattern.matcher(email);
         return matcher.find();
+    }
+    private static boolean isDll(MultipartFile bot){
+        String botName = bot.getOriginalFilename();
+        return botName.endsWith(".dll") || botName.endsWith(".DLL");
     }
 
     /**
