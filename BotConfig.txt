@@ -1,0 +1,80 @@
+{
+    "Bot Info" :
+    {
+        "BotName"                   : "CommandCenter",
+        "Authors"                   : "David Churchill",
+        "PrintInfoOnStart"          : false
+    },
+
+    "Game Info" :
+    {
+        "BotRace"                   : "Terran",
+        "EnemyDifficulty"           : 7,
+        "EnemyRace"                 : "Protoss",
+        "MapFile"                   : "D:\\scbots\\maps\\Ladder2017Season1\\AbyssalReefLE.SC2Map",
+        "StepSize"                  : 1
+    },
+        
+    "Micro" :
+    {
+        "KiteWithRangedUnits"       : false,
+        "ScoutHarassEnemy"          : true,
+        "CombatUnitsForAttack"      : 10
+    },
+    
+    "Macro" :
+    {
+        "WorkersPerRefinery"        : 3,
+        "BuildingSpacing"           : 0,
+        "PylonSpacing"              : 3
+    },
+
+    "Debug" :
+    {
+        "DrawGameInfo"              : true, 
+        "DrawProductionInfo"        : true, 
+        "DrawBaseLocationInfo"      : false,
+        "DrawTileInfo"              : false,
+        "DrawWalkableSectors"       : false,
+        "DrawScoutInfo"             : false,
+        "DrawEnemyUnitInfo"         : false,
+        "DrawResourceInfo"          : false,
+        "DrawUnitTargetInfo"        : false,
+        "DrawLastSeenTileInfo"      : false,
+        "DrawSquadInfo"             : false,
+        "DrawWorkerInfo"            : false,
+        "DrawBuildingInfo"          : false,
+        "DrawReservedBuildingTiles" : false
+    },
+    
+    "Modules" :
+    {
+        "UseAutoObserver"           : false
+    },
+    
+    "Strategy" :
+    {
+        "Protoss"                   : "Protoss_StalkerRush",
+        "Terran"                    : "Terran_MarineRush",
+        "Zerg"                      : "Zerg_2HatchRoach",
+        
+        "ScoutHarassEnemy"          : true,
+        
+        "Strategies" :
+        {
+            "Protoss_ZealotRush"    : { "Race" : "Protoss", "OpeningBuildOrder" : ["go keep train worker 16", "Pylon",  "Gateway", "Pylon",  "Gateway", "Gateway", "Pylon",  "Zealot", "Zealot", "Pylon", "Zealot", "Zealot", "Pylon", "Zealot", "Zealot", "Zealot", "Zealot", "Zealot", "Zealot", "Zealot", "Zealot", "Zealot", "Zealot"]},
+ 
+            "Protoss_StalkerRush"    : { "Race" : "Protoss", "OpeningBuildOrder" : ["go keep train worker 20", "Pylon",  "Gateway","go scout"  ,"Assimilator", "Assimilator",  "Gateway", "CyberneticsCore","go start gas", "Pylon", "WarpGateResearch", "go chrono boost cyberneticscore",  "Stalker", "Stalker", "TwilightCouncil", "Pylon @ enemy third", "Stalker", "Stalker", "go rally at pylon","BlinkTech", "Gateway @ enemy third", "Gateway", "Pylon", "Pylon", "go wait warpgate", "Stalker", "go chrono boost twilightcouncil", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker @ main", "Stalker", "Stalker", "go wait blink", "go start attack", "Stalker", "Stalker", "Stalker", "go chrono boost warpgate", "Stalker", "Stalker","Stalker", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker","Stalker", "Stalker", "Stalker", "Stalker", "Stalker", "Stalker"]},
+
+            "Protoss_ImmortalRush"    : { "Race" : "Protoss", "OpeningBuildOrder" : ["Probe", "Probe", "Pylon", "Probe", "Probe", "Gateway", "Assimilator", "Probe", "Probe", "Probe", "Probe", "Assimilator", "Probe", "Probe", "Gateway", "Probe", "Probe", "CyberneticsCore", "Pylon @ enemy third", "WarpGateResearch",  "Stalker", "Stalker","RoboticsFacility", "Stalker", "Stalker", "go rally at pylon", "Pylon", "Gateway", "Pylon", "Immortal", "MothershipCore", "go wait warpgate", "Pylon", "Immortal", "Stalker", "Stalker", "Stalker", "Adept", "Immortal", "Adept", "Adept", "Adept", "Stalker", "Immortal", "go start attack"]},
+
+            "Protoss_DTRush"    : { "Race" : "Protoss", "OpeningBuildOrder" : ["Probe", "Probe", "Pylon", "Probe", "Probe", "Gateway", "go keep train worker 23", "Assimilator", "Assimilator", "Gateway", "CyberneticsCore", "Pylon", "WarpGateResearch", "go chrono boost cyberneticscore", "TwilightCouncil", "go rally at pylon", "Stalker", "Stalker", "Pylon @ enemy third", "DarkShrine", "Gateway", "Gateway", "Pylon", "Pylon", "DarkTemplar", "DarkTemplar", "DarkTemplar", "DarkTemplar", "go chrono boost warpgate", "Stalker", "go start attack", "Stalker", "Stalker", "Stalker", "Stalker", "DarkTemplar", "Stalker", "DarkTemplar", "Stalker", "DarkTemplar", "Stalker", "DarkTemplar", "Stalker", "DarkTemplar"]},
+
+            "Terran_MarineRush"     : { "Race" : "Terran",  "OpeningBuildOrder" : ["go keep train worker 20", "SupplyDepot", "Barracks","Refinery", "go scout","Barracks","OrbitalCommand","go keep train worker 22","BarracksTechlab" ,"Barracks", "Stimpack","Marine", "MARAUDER", "SupplyDepot","Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "go start attack","Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine","Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine", "Marine"] },
+
+            "Zerg_ZerglingRush"     : { "Race" : "Zerg",    "OpeningBuildOrder" : ["SpawningPool", "Drone", "Overlord", "Drone", "Zergling", "Zergling", "Zergling", "Zergling", "Zergling", "Zergling", "Zergling", "Zergling"] },
+
+            "Zerg_2HatchRoach"      : { "Race" : "Zerg",    "OpeningBuildOrder" : ["Drone", "Drone", "SpawningPool", "Drone", "Drone", "Overlord", "Drone", "Extractor", "Drone", "Drone", "Hatchery", "Drone", "Overlord", "Drone", "RoachWarren", "Drone", "Drone", "Overlord", "Drone", "Drone", "Roach", "Overlord", "Roach", "Roach", "Roach", "Roach", "Overlord", "Roach", "Roach", "Roach", "Roach", "Roach", "Roach", "Roach"] }
+        }
+    }
+}
