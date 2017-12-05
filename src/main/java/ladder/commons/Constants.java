@@ -8,7 +8,7 @@ public class Constants {
     public static String getBotPath(){
         String os = System.getProperty("os.name");
         if(os.toLowerCase().startsWith("win")){
-            return "D:\\temp";
+            return "C:\\temp";
         }
         return "/home/wangjian/temp";
     }
